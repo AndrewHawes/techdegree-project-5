@@ -155,7 +155,8 @@ def edit(slug):
                     # clear and refresh tags in case any were removed
                     clear_tags(entry)
                     process_tags(form.tags.data, entry)
-                return redirect(url_for('index'))
+                flash("Entry updated successfully.")
+                return redirect(url_for('detail', slug=entry.slug))
             except IntegrityError:
                 flash("An entry with that title already exists.")
         else:
