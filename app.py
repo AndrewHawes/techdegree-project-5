@@ -213,7 +213,7 @@ def safe_slugify(title, current_entry=None):
         slugs = [entry.slug for entry in entries]
         if slug in slugs:
             if current_entry:
-                slug += str(current_entry.id)
+                slug += "~" + str(current_entry.id)
             else:
                 slug += "~" + str(entries[-1].id + 1)
         return slug
