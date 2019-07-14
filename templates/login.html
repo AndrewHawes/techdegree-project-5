@@ -1,0 +1,22 @@
+{% extends 'authentication_layout.html' %}
+
+{% block content %}
+<section>
+  <div class="container">
+    <div class="user-form">
+      <h2>Login</h2>
+      <form method="post" action="">
+        {{ form.hidden_tag() }}
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email"
+               value="{{ form.email.data or '' }}" required>
+        <br>
+        <label for="password">Password</label>
+        <input id="password" type="password" name="password" required><br>
+        <input type="submit" value="Login" class="button">
+        <a href="{{ url_for('index') }}" class="button button-secondary">Cancel</a>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<section>
+  <div class="container">
+    <div class="edit-entry">
+      <h2>Edit Entry</h2>
+      <form method="post" action="">
+        {{ form.hidden_tag() }}
+        <label for="title">Title</label>
+        <input id="title" type="text" name="title"
+               value="{{ form.title.data or entry.title }}" required><br>
+        <label for="date">Date</label>
+        <input id="date" type="date" name="date"
+               value="{{ form.date.data or entry.date }}" required><br>
+        <label for="time">Time Spent (in minutes)</label>
+        <input id="time" type="text" name="time"
+               value="{{ form.time.data or entry.time }}" required><br>
+        <label for="learned">What I Learned</label>
+        <textarea id="learned" rows="5"
+                  name="learned">{{ form.learned.data or entry.learned }}</textarea>
+        <label for="resources">Resources to Remember</label>
+        <textarea id="resources" rows="5"
+                  name="resources">{{ form.resources.data or entry.resources }}</textarea>
+        <label for="tags">Tags</label>
+        <input id="tags" type="text" name="tags"
+               value="{{ form.tags.data or entry.get_tags_string() }}"><br>
+        <input type="submit" value="Edit Entry" class="button">
+        <a href="{{ url_for('index') }}" class="button button-secondary">Cancel</a>
+        <a href="{{ url_for('delete', slug=entry.slug) }}" class="button right">Delete</a>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

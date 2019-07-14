@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<section>
+  <div class="container">
+    <div class="entry-list single">
+      <article>
+        <h1>{{ entry.title }}</h1>
+        <time datetime="{{ entry.date }}">{{ entry.date.strftime('%B %d, %Y') }}</time>
+        {% if entry.get_tags() %}
+          <br><br>
+          {% for tag in entry.get_tags() %}
+            <a class="tag-link" href="{{ entry.get_tag_link(tag) }}">{{ tag }}</a>
+          {% endfor %}
+        {% endif %}
+        <div class="entry">
+          <h3>Time Spent: </h3>
+          <p>{{ entry.time }} minute{{ entry.time | pluralize }}</p>
+        </div>
+        <div class="entry">
+          <h3>What I Learned:</h3>
+          {% for p in entry.learned.split('\n') %}
+          <p>{{ p }}</p>
+          {% endfor %}
+        </div>
+        <div class="entry">
+          <h3>Resources to Remember:</h3>
+          {% if entry.resources %}
+          <ul>
+            {% for resource in entry.resources.split('\n') %}
+                <li>{{ resource }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </div>
+      </article>
+    </div>
+  </div>
+  {% if current_user.is_authenticated and current_user == entry.user or current_user.is_admin %}
+    <div class="edit">
+      <p><a href="{{ url_for('edit', slug=entry.slug) }}">Edit Entry</a></p>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}
